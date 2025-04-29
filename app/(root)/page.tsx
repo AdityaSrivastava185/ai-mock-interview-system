@@ -12,6 +12,7 @@ import {
 
 async function Home() {
   const user = await getCurrentUser();
+  const linkedInUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL;
 
   const [userInterviews, allInterview] = await Promise.all([
     getInterviewsByUserId(user?.id!),
@@ -23,17 +24,27 @@ async function Home() {
 
   return (
     <>
-    <h1 className="text-6xl md:text-[10vw] xl:text-[7vw] font-bold w-full h-auto text-center md:text-start text-foreground xl:tracking-tighter"> Welcome to Better Space</h1>
+      <h1 className="text-6xl md:text-[10vw] xl:text-[7vw] font-bold w-full h-auto text-center md:text-start text-foreground xl:tracking-tighter">
+        {" "}
+        Welcome to <br/> <span className="hero-heading italic">Better</span> Space
+      </h1>
       <section className="card-cta">
         <div className="flex flex-col items-start justify-center gap-6 w-full mt-[-40px]">
-          <h2 className=" text-center md:text-start text-sm font-medium md:text-xl">No Fluff , You Bring the Hustle. We Bring the Feedback , No More 'Maybe Next Time.' It's Your Turn to Take Over</h2>
+          <h2 className=" text-center md:text-start text-sm font-medium md:text-xl">
+            No Fluff , You Bring the Hustle. We Bring the Feedback , No More
+            'Maybe Next Time.' It's Your Turn to Take Over
+          </h2>
           <p className="text-sm text-center md:text-start w-full">
-          Real questions,Instant insights,Zero excuses,No BS
+            Real questions,Instant insights,Zero excuses,No BS
           </p>
-
-          <Button asChild className="btn-primary max-sm:w-full">
-            <Link href="/interview">Start an Interview</Link>
-          </Button>
+          <div className="my-8 md:my-4 flex flex-col md:flex-row items-center justify-center md:justify-start w-full">
+            <Button asChild className="btn-primary max-sm:w-full my-4 md:my-0">
+              <Link href="/interview">Start an Interview</Link>
+            </Button>
+            <Button asChild className="rounded-full max-sm:w-full md:mx-6" variant="secondary">
+              <Link href={linkedInUrl || "#"} target="_blank">Wanna connect with the creator</Link>
+            </Button>
+          </div>
         </div>
 
         {/* <Image
